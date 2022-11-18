@@ -16,7 +16,14 @@ export default (appInfo: EggAppInfo) => {
   config.view = {
     mapping: { '.html': 'ejs' }, //左边写成.html后缀，会自动渲染.html文件
   };
-
+  config.multipart = {
+    mode: 'file',
+  };
+  config.cors = {
+    origin: '*', // 允许所有跨域访问
+    credentials: true, // 允许 Cookie 跨域跨域
+    allowMethods: 'GET,HEAD,PUT,POST,DELETE,PATCH',
+  };
   // add your egg config in here
   config.middleware = [];
 

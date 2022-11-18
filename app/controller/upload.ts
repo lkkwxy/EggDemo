@@ -8,18 +8,15 @@ export default class UploadController extends Controller {
     const { ctx } = this;
     let uploadDir = '';
     try {
-      console.log(ctx.request.files);
       let file = ctx.request.files[0];
       let f = fs.readFileSync(file.filepath);
-
-      let dir = path.join(this.config.uploadDir, '20221117');
+      let dir = path.join(this.config.userConfig.uploadDir, '20221117');
       await mkdirp(dir);
       let date = Date.now();
       uploadDir = path.join(dir, date + path.extname(file.filename));
       console.log(uploadDir);
       fs.writeFileSync(uploadDir, f);
     } catch (error) {
-      console.log('----', error);
     } finally {
       ctx.cleanupRequestFiles();
     }
