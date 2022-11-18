@@ -1,8 +1,8 @@
 import { Context } from 'egg';
-export default function (secret) {
+export default function jwtErr(secret: string) {
   return async (ctx: Context, next: () => Promise<void>) => {
     const token = ctx.request.header.token;
-    if (token != 'null' && token && typeof token == 'string') {
+    if (token !== 'null' && token && typeof token === 'string') {
       try {
         const result = ctx.app.jwt.verify(token, secret) as unknown as { id: number; username: string };
         ctx.setUser(result);

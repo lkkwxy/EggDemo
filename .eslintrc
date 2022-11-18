@@ -2,5 +2,10 @@
   "extends": "eslint-config-egg/typescript",
   "parserOptions": {
     "project": "./tsconfig.json"
+  },
+  "rules": {
+    "@typescript-eslint/no-unused-vars": ["off"],
+    "array-bracket-spacing": ["off"],
+    "comma-dangle": ["off"]
   }
 }

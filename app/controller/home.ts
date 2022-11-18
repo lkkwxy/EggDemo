@@ -3,10 +3,7 @@ import { Controller } from 'egg';
 export default class HomeController extends Controller {
   public async index() {
     const { ctx } = this;
-
-    await ctx.render('index.html', {
-      title: '1111', // 将 title 传入 index.html
-    });
+    ctx.body = 'hi, egg';
   }
   public async user() {
     const { ctx } = this;

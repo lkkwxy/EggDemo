@@ -49,12 +49,12 @@ export default class UserController extends Controller {
     const { username, password } = ctx.request.body;
     const user = await ctx.service.user.getUserByName(username);
     if (user) {
-      if (user.password == password) {
+      if (user.password === password) {
         // const token = app.jwt
         const token = app.jwt.sign(
           {
             id: user.id,
-            username: username,
+            username,
             exp: Math.floor(Date.now() / 1000 + 24 * 3600),
           },
           app.config.jwt.secret
@@ -89,20 +89,21 @@ export default class UserController extends Controller {
       msg: 'success',
       data: {
         ...otherInfo,
-        avatar: userInfo.avatar || defaultAvatar,
+        avatar: avatar || defaultAvatar,
       },
     };
   }
 
   public async editUserInfo() {
     const { ctx } = this;
-    const { signature = '' } = ctx.request.body;
+    const { signature = '', avatar } = ctx.request.body;
     try {
       const user = ctx.getUser();
       const userInfo = (await ctx.service.user.getUserByName(user.username)) as User;
       await ctx.service.user.editUserInfo({
         ...userInfo,
         signature,
+        avatar: avatar || userInfo.avatar,
       });
       ctx.body = {
         code: 200,
